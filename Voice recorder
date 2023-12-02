@@ -1,0 +1,37 @@
+from tkinter import *
+import sounddevice
+from scipy.io.wavfile import *
+import time
+import wavio
+
+window = Tk()
+window.geometry("1000x1000")
+window.title("CodersCave Voice recorder")
+icon = PhotoImage(file="img.png")
+window.iconphoto(True,icon)
+window.config(background="#F78DA7")
+
+def record():
+    freq=44100
+    dur = int(duration.get())
+    recording = sounddevice.rec(dur*freq,samplerate=freq,channels=2)
+    sounddevice.wait()
+    write("recording_coderscave1.wav",freq,recording)
+
+
+photo = PhotoImage(file="img_1.png")
+picture = Label(window,image=photo,bg="#F78DA7")
+picture.pack(padx=10,pady=10)
+
+text = Label(window,text="Voice recorder",font="arial 15 bold",fg="black",bg="#F78DA7",bd='10')
+text.pack()
+
+duration = StringVar()
+entry=Entry(window,textvariable=duration,font="arial 10",width=50)
+entry.pack()
+text_2=Label(window,text="Enter the duration of recording",font="arial 10",fg="black",bg="#F78DA7")
+
+record = Button(window,text="Record",command=record).pack()
+
+
+window.mainloop()
